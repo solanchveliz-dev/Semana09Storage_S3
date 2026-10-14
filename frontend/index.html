@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VlogVault Studio · Lab 09 S3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">▶</div>
+      <div>
+        <h1>VlogVault <span>Studio</span></h1>
+        <p>Lab 09 · Amazon S3 · Naomi Veliz</p>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge ok">● Bucket privado</span>
+      <span class="badge">🔐 SSE-S3</span>
+      <span class="badge">⏱ Presigned URLs</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats">
+      <div class="stat"><span class="stat-icon">🎞️</span><div><strong id="statTotal">0</strong><small>Archivos</small></div></div>
+      <div class="stat"><span class="stat-icon">📷</span><div><strong id="statPhotos">0</strong><small>Fotos</small></div></div>
+      <div class="stat"><span class="stat-icon">🎬</span><div><strong id="statVideos">0</strong><small>Videos</small></div></div>
+      <div class="stat"><span class="stat-icon">💾</span><div><strong id="statSize">0 KB</strong><small>Almacenado</small></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Subir contenido</h2>
+        <small>Se sube directo a S3 con URL prefirmada · el archivo no pasa por el servidor</small>
+      </div>
+      <label id="dropzone" class="dropzone">
+        <input type="file" id="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime" hidden>
+        <div class="dz-icon">☁️</div>
+        <p><strong>Arrastra tu foto o video aquí</strong></p>
+        <small>o haz clic para elegir</small>
+        <div class="chips">
+          <span>📷 JPG · PNG · WEBP ≤ 5 MB</span>
+          <span>🎬 MP4 · WEBM · MOV ≤ 50 MB</span>
+        </div>
+      </label>
+
+      <div id="preview" class="preview hidden">
+        <div id="previewMedia" class="preview-media"></div>
+        <div class="preview-info">
+          <p id="fileName"></p>
+          <small id="fileMeta"></small>
+          <div id="progress" class="progress hidden"><div id="bar"></div></div>
+        </div>
+        <button id="cancelBtn" class="btn ghost">Cancelar</button>
+        <button id="uploadBtn" class="btn primary">Subir a S3</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="gallery-head">
+        <div class="tabs">
+          <button class="tab active" data-filter="all">Todo</button>
+          <button class="tab" data-filter="image">Fotos</button>
+          <button class="tab" data-filter="video">Videos</button>
+        </div>
+        <button id="refreshBtn" class="btn ghost">↻ Actualizar</button>
+      </div>
+      <div id="gallery" class="gallery"></div>
+      <p id="empty" class="empty hidden">No hay contenido aquí todavía. ¡Sube tu primera toma! 🎬</p>
+    </section>
+  </main>
+
+  <footer>Archivos privados en Amazon S3 · las URLs de visualización expiran en 15 minutos</footer>
+
+  <div id="modal" class="modal hidden"><div id="modalContent"></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
